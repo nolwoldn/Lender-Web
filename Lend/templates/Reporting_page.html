@@ -1,0 +1,66 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/reporting.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Report bugs</title>
+  </head>
+  <body>
+    {% include "header.html" with Name=username link=person_link %}
+
+    <div class="main-body">
+      <h2 class="top-head">Report an issue</h2>
+
+      <hr />
+
+      {% if not reported %}
+      <form id="reportForm" method="post">
+        {% csrf_token %}
+
+        <textarea
+          class="txt-area"
+          type="text"
+          name="report-text"
+          placeholder="Please describe your issue."
+          cols="123"
+          rows="21"
+          maxlength="2829"
+          required
+        ></textarea>
+        <input type="submit" placeholder="Submit" class="submit-button" />
+      </form>
+      {% else %}
+      <form id="reportForm" method="post">
+        {% csrf_token %}
+
+        <textarea
+          class="txt-area"
+          type="text"
+          name="report-text"
+          placeholder="Please describe your issue."
+          cols="123"
+          rows="21"
+          maxlength="2829"
+          required
+        ></textarea>
+        <input type="submit" placeholder="Submit" class="submit-button" />
+      </form>
+      <div class="succesful-report">
+        <i class="fa fa-check"></i> Thank you for the report.
+      </div>
+      {% endif %}
+    </div>
+    <style>
+      .header {
+        position: relative;
+        width: 100%;
+      }
+    </style>
+  </body>
+</html>

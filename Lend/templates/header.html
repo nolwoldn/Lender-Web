@@ -1,0 +1,50 @@
+{% load static %}
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="{%static 'css/header.css' %}" />
+
+<nav class="header">
+  <div class="left">
+    <button class="left-links side-btn fa fa-bars burger"></button>
+
+    <a class="left-links" href="/">Home</a>
+    <a class="left-links" href="../../report/">Report issues</a>
+    
+  </div>
+
+  <div class="right">
+    <div class="search-wrapper">
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Search"
+        autocomplete="off"
+      />
+      <button class="fa fa-search search-button"></button>
+
+      <div id="drop-down-results">
+      </div>
+    </div>
+
+    <a class="left-links" href="../../profile/" style="margin-left: 18px;">Hello    {{username}}</a>
+
+
+  </div>
+</nav>
+<div class="side-bar">
+  <nav class="side-head-wrapper">
+    <a class="side-exit fa fa-times-circle"></a>
+    <a href="../../profile/" class="side-head">
+      <i class="fa fa-user-circle"></i>
+      My account
+    </a>
+  </nav>
+  <main class="side-mainbody">
+  
+    <a class="side-bar-link logout" href="../../logout/">Log out</a>
+  </ma>
+</div>
+<script type="module" src="{% static 'js/header.js' %}"></script>
