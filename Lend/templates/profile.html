@@ -1,0 +1,194 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <title>Profile</title>
+  </head>
+  <body>
+    {% include "header.html" with username=username %} {% csrf_token %}
+    <main class="full">
+      <div class="lending -item-form">
+        <section class="lend-top">
+          <h2 class="lend-heading">Please fill out the form to lend items</h2>
+          <i class="fa fa-times-circle close-lend-form"></i>
+        </section>
+        <label for="lending-item-name">Item name</label>
+        <input
+          id="lending-item-name"
+          type="text"
+          name="item-name"
+          minlength="8"
+          maxlength="32"
+          class="form-inputs"
+          placeholder="Item name"
+          required
+        />
+        <label for="lending-item-desc">Describe</label>
+        <textarea
+          id="lending-item-desc"
+          name="item-desc"
+          maxlength="1144"
+          cols="90"
+          rows="13"
+          class="form-inputs"
+          placeholder="Item description"
+          required
+        ></textarea>
+
+        <button class="submit-button">Post</button>
+      </div>
+      <section
+        class="profile-left"
+        style="display: flex !important; flex-direction: column !important"
+      >
+        <section class="main-profile">
+          <h3 class="prof-head">
+            <i class="fa fa-user-circle"></i>
+            <span class="profile-username">{{username}}</span>
+          </h3>
+        </section>
+        <section class="borrow-requests">
+          <h3 class="borrow-req-heading identifiers">Borrow requests</h3>
+          {% if borrow_req_len > 0 %} {% for i in borrow_req %}
+          <div class="borrow-req-cards">
+            <a href="../users/?q={{i.usr_id}}" class="borrow-req-link"
+              >{{i.Name}}: {{i.Item}}</a
+            >
+
+            <section>
+              <i
+                class="request-ans accept-request fa fa-check-circle"
+                data-brr-req-d="{{i.brrw_req_id}}"
+                data-brrq-type="True"
+              ></i>
+              <i
+                class="request-ans deny-request fa fa-times-circle"
+                data-brr-req-d="{{i.brrw_req_id}}"
+                data-brrq-type="False"
+              ></i>
+            </section>
+          </div>
+          {% endfor %} {% else %}
+          <section class="borrow-req-cards">
+            <h3 class="No-borrow-requests">No borrow requests</h3>
+          </section>
+          {% endif %}
+        </section>
+        <section class="brrwd-itms">
+          <h3 class="identifiers">Borrowed items</h3>
+          {% for itm in brrd_itms %} {% if itm.brrwd %}
+          <section class="brrwd-itms-cards">
+            <h3 class="brrw-itm-n">{{itm.User_name}}: {{itm.Item_name}}</h3>
+            <button
+              class="brrw-itm-re"
+              data-usr-borrowed-item="{{itm.Item_id}}"
+            >
+              return
+            </button>
+          </section>
+          {% else %}
+
+          <h3 class="no-brrwd-itm">You haven't borrowed any items</h3>
+          {% endif %} {% endfor %}
+        </section>
+      </section>
+      <!--Profile right-->
+      <section class="profile-right">
+        <section class="prof-right-top">
+          <h3 class="prof-right-heading">Lended items</h3>
+          <button class="Lend-item">add item</button>
+        </section>
+        {% if not No_items %} {% for x in user_items %}
+        <div class="prof-item-card" id="{{x.id}}">
+          <div class="prof-item-card-top">
+            <h3 class="prof-card-top-left">{{x.Name}}</h3>
+            <div class="prof-card-top-right">
+              {% if x.borrowed %}
+              <i class="fa fa-circle borrowed_item" style="color: red"></i>
+              {% else %}
+              <i
+                class="fa fa-circle unborrowed_item"
+                style="color: rgb(0 255 0)"
+              ></i>
+              {% endif %}
+            </div>
+          </div>
+          <div class="prof-item-card-main">
+            <h5 class="prof-item-desc">{{x.desc}}</h5>
+            <div class="prof-itm-options">
+              <button
+                class="edit itm-options"
+                onclick="
+                  document.getElementById('itm-edit-{{x.id}}').style.display = 'block';
+                  console.log('i got clicked');
+                  "
+              >
+                edit
+              </button>
+              <button class="delete itm-options" data-itm-id="{{x.id}}">
+                delete
+              </button>
+            </div>
+          </div>
+        </div>
+        <main class="editing -item-form" id="itm-edit-{{x.id}}">
+          <section class="lend-top">
+            <h2 class="lend-heading">Please edit your items</h2>
+            <i
+              class="fa fa-times-circle close-edit-form"
+              onclick="
+                document.getElementById('itm-edit-{{x.id}}').style.display = 'none'
+                "
+            ></i>
+          </section>
+          <label>
+            <span>Item name</span>
+            <input
+              class="form-inputs"
+              id="lending-name-edit-{{x.id}}"
+              value="{{x.Name}}"
+              minlength="8"
+              maxlength="32"
+              required
+            />
+          </label>
+          <label>
+            <span>Describe</span>
+            <textarea
+              id="lending-desc-edit-{{x.id}}"
+              maxlength="1144"
+              cols="90"
+              rows="13"
+              class="form-inputs"
+              required
+            >
+{{x.desc}}</textarea
+            >
+          </label>
+          <button
+            class="edit-submit"
+            data-itm-card-id="{{x.id}}"
+            data-name-input-id="lending-name-edit-{{x.id}}"
+            data-desc-input-id="lending-desc-edit-{{x.id}}"
+          >
+            confirm edit
+          </button>
+        </main>
+        {% endfor %} {% else %}
+        <div class="prof-right-not-found">No Lended items</div>
+        {% endif %}
+      </section>
+    </main>
+
+    <script type="module" src="{% static 'js/profile.js' %}"></script>
+  </body>
+</html>

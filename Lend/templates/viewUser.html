@@ -1,0 +1,63 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/viewUser.css' %}" />
+    <title>{{queryed_username}}</title>
+  </head>
+  <body>
+    {% include "header.html" with username=username %} {% csrf_token %}
+    <main class="full-user">
+      <section class="user-heading-sec">
+        <h4 class="user-heading">{{queryed_username}}</h4>
+      </section>
+      <section class="itm-section">
+        {% if itms_exist %} {% for i in itms %}
+        <a
+          class="itm-card"
+          id="{{i.item.id}}"
+          title="send borrow request for item?"
+          data-borrowing-from-usr-id="{{i.lender.link}}"
+          data-borrowing-itm-id="{{i.item.id}}"
+        >
+          <section class="itm-top">
+            <h3 class="itm-heading">{{i.item.name}}</h3>
+            {% if i.item.borrowed %}
+            <i
+              class="fa fa-circle borrowed_item"
+              style="color: red"
+              title="item is not available."
+            ></i>
+            {% else %}
+            <i
+              class="fa fa-circle unborrowed_item"
+              style="color: rgb(0 255 0)"
+              title="item is available."
+            ></i>
+            {% endif %}
+          </section>
+          <section class="usr-itm-main">
+            <p class="usr-itm-desc">{{i.item.desc}}</p>
+          </section>
+        </a>
+        {% endfor %} {% else %}
+        <h1 class="No-items-found">This user has no itms</h1>
+        {% endif %}
+      </section>
+    </main>
+    
+    <div class="error-explanation" >
+      
+    </div>
+    
+
+    <script type="module" src="{% static 'js/viewUser.js' %}"></script>
+  </body>
+</html>

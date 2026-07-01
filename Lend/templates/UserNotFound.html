@@ -1,0 +1,13 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/nouserfound.css' %}" />
+    <title>404</title>
+  </head>
+  <body>
+    {% include "header.html" with username=username %}
+    <h3 class="No-user-found">Sorry no user found :-(</h3>
+  </body>
+</html>

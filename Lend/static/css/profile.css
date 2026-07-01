@@ -1,0 +1,224 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.full {
+  width: 100%;
+  display: flex;
+  padding: 85px 30% 0% 15%;
+  flex-flow: row nowrap;
+  gap: 10%;
+}
+
+.profile-left {
+  width: 40%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0px;
+  position: static;
+}
+.main-profile {
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 20px;
+  border: 3px solid black;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 44, 0.836);
+}
+.prof-head {
+  margin: 0px;
+  letter-spacing: 2px;
+}
+.identifiers {
+  padding: 12px;
+}
+
+.borrow-requests {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.borrow-req-cards {
+  padding: 20px;
+  background-color: rgba(224, 160, 0, 0.399);
+  border: 3px solid black;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.borrow-req-link {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  position: relative;
+  padding-bottom: 2px;
+}
+.borrow-req-link::after {
+  content: "";
+
+  background-color: black;
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  border-radius: 12px;
+  height: 2px;
+  width: 100%;
+
+  transform: scaleX(0);
+  transition: 0.3s cubic-bezier(0.24, 0.2, 0.3, 1);
+}
+.borrow-req-link:hover::after {
+  transform: scaleX(1);
+}
+.accept-request {
+  color: rgba(0, 255, 0, 0.286) !important;
+  padding: 2px;
+  font-size: 40px !important;
+}
+
+.accept-request:hover {
+  color: rgb(0, 255, 0) !important;
+}
+
+.deny-request {
+  color: rgba(255, 0, 0, 0.286) !important;
+  padding: 2px;
+  font-size: 40px !important;
+}
+.deny-request:hover {
+  color: rgb(255, 0, 0) !important;
+}
+
+.profile-right {
+  width: 60%;
+  height: fit-content;
+  display: flex;
+  flex-flow: column nowrap;
+  border: 3px solid black;
+  align-items: end;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.prof-item-card {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: 12px;
+  flex-flow: column nowrap;
+  height: 60%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+.prof-item-card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+  font-size: 22px;
+}
+
+.Lend-item {
+  margin-bottom: 4px;
+  font-size: 22px;
+  background-color: rgb(0, 255, 0);
+  color: white;
+}
+.prof-right-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.prof-right-not-found {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 12px;
+
+  font-size: 28px;
+  font-weight: 600;
+}
+.-item-form {
+  background-color: white;
+
+  position: absolute;
+  display: flex;
+  padding: 12px;
+  z-index: 3;
+
+  flex-flow: column nowrap;
+  border-radius: 12px;
+  box-shadow: 0px 0px 12px 8px rgba(0, 0, 0, 0.327);
+  gap: 4px;
+  display: none;
+}
+.lending {
+  left: 50%;
+  transform: translate(-50%) !important;
+}
+.editing {
+  left: 50%;
+  transform: translate(-50%, -7%);
+}
+
+.form-inputs {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid black;
+}
+.lend-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.submit-button {
+  background-color: rgb(0 255 0);
+  color: white;
+  float: right;
+  border: 1px solid black;
+}
+
+.brrwd-itms-cards {
+  border: 3px solid black;
+  border-radius: 12px;
+  margin-top: 3px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+
+  background-color: rgba(228, 122, 255, 0.466);
+  padding: 20px;
+}
+
+.brrw-itm-re {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: 1px solid black;
+  color: whitesmoke;
+}
+
+.prof-item-desc {
+  margin-top: 8px;
+  font-size: small;
+}
+
+.no-brrwd-itm {
+  background-color: rgba(228, 122, 255, 0.466);
+  border-radius: 12px;
+  margin-top: 3px;
+  border: 3px solid black;
+  padding: 20px;
+}

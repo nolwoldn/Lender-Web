@@ -1,0 +1,60 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  </head>
+  <body>
+    <h1>Please log in</h1>
+    <form method="post">
+      {%csrf_token%}
+
+      <div class="container">
+        <label for="Name"><b>Username</b></label
+        ><br />
+        <input
+          type="text"
+          name="Name"
+          id="Name"
+          placeholder="Enter your username"
+          required
+        /><br /><br />
+
+        <label for="psw"><b>Password</b></label
+        ><br />
+        <div class="password-wrap">
+          <input
+            type="password"
+            id="psw"
+            name="password"
+            placeholder="Enter a password"
+            required
+          />
+          <i class="fa fa-eye" id="password-viewr"></i>
+        </div>
+
+        <br /><br />
+
+        <button id="Log_button" type="submit">Login</button><br /><br />
+
+        <div class="bottom-form">
+          <label>
+            <input type="checkbox" checked="checked" name="Remember" />
+            Remember me?
+          </label>
+          <a href="/signup/" class="signup-link">No account?</a>
+        </div>
+      </div>  
+      {% if Login_fail %}
+      <h3 class="fail">Username or password is not correct</h3>
+      {% endif %}
+    </form>
+    <script type="module" src="{% static 'js/login.js' %}"></script>
+  </body>
+</html>
