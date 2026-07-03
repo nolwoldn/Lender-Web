@@ -26,6 +26,9 @@ body {
   width: 100%;
   padding: 20px;
   border: 3px solid black;
+  display: flex;
+  justify-content: space-between !important;
+
   border-radius: 12px;
   background-color: rgba(255, 255, 44, 0.836);
 }
@@ -164,6 +167,14 @@ h6 {
   box-shadow: 0px 0px 12px 8px rgba(0, 0, 0, 0.327);
   gap: 4px;
   display: none;
+}
+.delete-account {
+  background-color: red;
+  color: white;
+  padding: 4px 2px;
+  border: 1px solid black;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 .lending {
   left: 50%;
