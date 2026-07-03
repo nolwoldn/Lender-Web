@@ -21,3 +21,28 @@ body {
   border: 1px solid black;
   gap: 4px;
 }
+
+.deleiton-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: 5px
+    ;
+}
+.selection-sec {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 18px;
+}
+.choice-options {
+    border: 1px solid black;
+    padding: 8px;
+    color: white;
+    background-color: rgb(0, 255, 0);
+    font-size: 22px;
+
+}
+.delete {
+    background-color: red;
+}

@@ -536,6 +536,7 @@ def borrow(request):
 
     return JsonResponse({"what": what_happened})
 
+
 def account_deletion(request):
     if not request.session.get("usr_session"):
         return redirect("home")
@@ -549,13 +550,13 @@ def account_deletion(request):
 
     if not usr_acc.exists:
         return redirect("home")
-    
+
     usr_acc = usr_acc.first()
 
     usr_id = usr_acc.id
     usr_itms = Item.objects.filter(id__in=usr_acc.Lended_items_id)
     usr_borrow_req = Borrow_request.objects.filter(Borrowing_user_id=usr_id)
-    usr_final_repo = request.POST.get("fin-repo").strip()
+    usr_final_repo = request.POST.get("fin-repo")[0:1200].strip()
     usr_error_repos = Error_reporting.objects.filter(reporting_usr=usr_id)
 
     if usr_itms.exists:
