@@ -363,7 +363,6 @@ class Profile_actions:
 
         itm.Item_name = self.data["itm_new_name"]
         itm.Item_desc = self.data["itm_new_desc"]
-
         if itm.Item_image and os.path.exists(itm.Item_image.path) and item_img is not None:
             os.remove(itm.Item_image.path)
             itm.Item_image = self.decode_image(

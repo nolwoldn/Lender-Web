@@ -161,7 +161,6 @@
                 class="edit itm-options"
                 onclick="
                   document.getElementById('itm-edit-{{x.id}}').style.display = 'block';
-                  console.log('i got clicked');
                   "
               >
                 edit
@@ -196,9 +195,8 @@
             <input
               type="file"
               accept="image/*"
-              class="lending-image-edit-{{x.id}} editing-prev"
+              class="lending-image-edit-{{x.id}} editing-prev form-inputs"
               value="{{x.image}}"
-              class="form-inputs"
               data-swap-img-id="lending-prev-edit-{{x.id}}"
             />
           </label>

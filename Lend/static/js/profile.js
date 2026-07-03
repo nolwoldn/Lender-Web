@@ -130,11 +130,12 @@ if (editSubmitionClass.length > 0) {
 
       const editingForm = document.querySelector(`#itm-edit-${itmId}`);
       editingForm.style.display = "none";
+      let itmImgString;
 
       if (itmImgFile) {
-        const itmImgString = await fileToBase64(itmImgFile);
+        itmImgString = await fileToBase64(itmImgFile);
       } else {
-        const itmImgString = null;
+        itmImgString = null;
       }
 
       const fixedData = {
@@ -143,7 +144,6 @@ if (editSubmitionClass.length > 0) {
         itm_new_desc: itmDescInp.value,
         itm_new_img: itmImgString,
       };
-
       sendToServer("editItm", fixedData);
     });
   });
@@ -175,12 +175,10 @@ lendingItemImage.addEventListener("change", function () {
 });
 
 if (editingImageInputClass.length > 0) {
-  editingImageInputClass.forEach((editingImageinp) => {
+  editingImageInputClass.forEach((editingImageInp) => {
     editingImageInp.addEventListener("change", function (event) {
       const editingImageInpDataSet = this.dataset;
-      const editingImgPrev = document.querySelector(
-        editingImageInpDataSet.swapImgId,
-      );
+      const editingImgPrev = document.getElementById(editingImageInpDataSet.swapImgId);
       const crrItemFile = this.files[0];
 
       if (crrItemFile) {
