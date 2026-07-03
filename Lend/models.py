@@ -17,6 +17,7 @@ class Item(models.Model):
     Item_name = models.CharField(max_length=255)
     Item_desc = models.CharField(max_length=1200)
     Item_borrowed_state = models.BooleanField(default=False)
+    Item_image = models.ImageField(upload_to="item_images",null=True,blank=True)
 
     def __str__(self):
         return f"{self.id} {self.Item_name}"

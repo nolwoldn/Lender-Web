@@ -3,6 +3,10 @@ import json
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from .models import Item, Users, Error_reporting, Borrow_request
+import base64
+from django.core.files.base import ContentFile
+import os
+import random
 from django.views.decorators.csrf import csrf_protect
 
 
@@ -261,6 +265,30 @@ class Profile_actions:
     def lend_item(self):
         item_name = self.data["itemName"].strip()
         item_desc = self.data["itemDesc"].strip()
+        item_image_str = self.data["itemImage"]  # the base 64 text verison of the image
+
+        new_item = Item(
+            Item_name=item_name, Item_desc=item_desc, Item_borrowed_state=False
+        )
+
+        if item_image_str:
+            format, imgStr = item_image_str.split(";base64,")
+
+            extension = format.split("/")[-1]
+            file_name = f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
+
+            image_dir = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "item_images"
+            )
+            img_dir_ls = os.listdir(image_dir)
+
+            while file_name in img_dir_ls:
+                file_name = (
+                    f"{item_name}__{random.random() + random.randint(0, 100000)}"
+                )
+
+            file_data = ContentFile(base64.b64decode(imgStr), file_name)
+            new_item.Item_image = file_data
 
         if len(item_name) > 32:
             item_name = item_name[0:32]
@@ -269,9 +297,7 @@ class Profile_actions:
             item_desc = item_desc[0:1144]
 
         usr_lended_itms_id = self.user.Lended_items_id
-        new_item = Item(
-            Item_name=item_name, Item_desc=item_desc, Item_borrowed_state=False
-        )
+
         new_item.save()
         usr_lended_itms_id.append(new_item.id)
         self.user.Lended_items_id = usr_lended_itms_id

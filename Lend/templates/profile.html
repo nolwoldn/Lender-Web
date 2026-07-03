@@ -21,6 +21,26 @@
           <h2 class="lend-heading">Please fill out the form to lend items</h2>
           <i class="fa fa-times-circle close-lend-form"></i>
         </section>
+        <section class="image-preview-box">
+          <img
+            id="image-preview"
+            src=""
+            alt="Image Preview"
+            style="display: none"
+            width="100px"
+            height="100px"
+          />
+        </section>
+        <label for="lending-item-image">Image of item</label>
+        <input
+          type="file"
+          id="lending-item-image"
+          class="form-inputs item-image"
+          name="Item-pic"
+          accept="image/*"
+          required
+        />
+
         <label for="lending-item-name">Item name</label>
         <input
           id="lending-item-name"
@@ -55,7 +75,9 @@
             <i class="fa fa-user-circle"></i>
             <span class="profile-username">{{username}}</span>
           </h3>
-          <a href="../../delete"><button class="delete-account" >Delete account</button></a>
+          <a href="../../delete"
+            ><button class="delete-account">Delete account</button></a
+          >
         </section>
         <section class="borrow-requests">
           <h3 class="borrow-req-heading identifiers">Borrow requests</h3>

@@ -1,6 +1,8 @@
 const lendItemBtn = document.querySelector(".Lend-item");
 const closeLendBtn = document.querySelector(".close-lend-form");
 const lendForm = document.querySelector(".lending");
+const lendingItemImage = document.querySelector(".item-image");
+const lendingImagePrev = document.querySelector("#image-preview");
 
 const lendItemSubmit = document.querySelector(".submit-button");
 const requestAnsClass = document.querySelectorAll(".request-ans");
@@ -58,15 +60,32 @@ async function sendToServer(action, data) {
   }
 }
 
-lendItemSubmit.addEventListener("click", (event) => {
+function fileToBase64(file) {
+  return new Promise((resolve , reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  })
+}//chose the stupidest way for no reason but for the lols
+
+
+lendItemSubmit.addEventListener("click", async (event) => {
   const itemName = document.querySelector("#lending-item-name");
   const itemDesc = document.querySelector("#lending-item-desc");
+  const itemImageFile = lendingItemImage.files[0];
 
   closeForm(lendForm);
+
+  let base64Image = null;
+  if (itemImageFile) {
+    base64Image = await fileToBase64(itemImageFile);
+  }
 
   const fixedData = {
     itemName: itemName.value.trim(),
     itemDesc: itemDesc.value.trim(),
+    itemImage: base64Image,
   };
 
   sendToServer("lendingItem", fixedData);
@@ -132,3 +151,17 @@ if (deleteLendedItemClass.length > 0) {
     });
   });
 }
+
+lendingItemImage.addEventListener("change", function () {
+  const crrImageFile = this.files[0];
+
+  if (crrImageFile) {
+    const objectUrl = URL.createObjectURL(crrImageFile);
+
+    lendingImagePrev.src = objectUrl;
+    lendingImagePrev.style.display = "block";
+  } else {
+    lendingImagePrev.src = "";
+    lendingImagePrev.style.display = "none";
+  }
+});
