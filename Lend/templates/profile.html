@@ -27,8 +27,8 @@
             src=""
             alt="Image Preview"
             style="display: none"
-            width="100px"
-            height="100px"
+            width="100%"
+            height="200px"
           />
         </section>
         <label for="lending-item-image">Image of item</label>
@@ -124,7 +124,11 @@
           {% endif %} {% endfor %}
         </section>
       </section>
+
+
       <!--Profile right-->
+
+
       <section class="profile-right">
         <section class="prof-right-top">
           <h3 class="prof-right-heading">Lended items</h3>
@@ -132,6 +136,7 @@
         </section>
         {% if not No_items %} {% for x in user_items %}
         <div class="prof-item-card" id="{{x.id}}">
+          <img class="item-image" src="{{x}}"
           <div class="prof-item-card-top">
             <h3 class="prof-card-top-left">{{x.Name}}</h3>
             <div class="prof-card-top-right">

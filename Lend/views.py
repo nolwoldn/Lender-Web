@@ -74,6 +74,7 @@ def find_item(user_id):
                 "name": i.Item_name,
                 "desc": i.Item_desc,
                 "borrowed": i.Item_borrowed_state,
+                "url": i.Item_image,
                 "id": i.id,
                 "brrw_req_id": find_BQ_tI(i.id),
             },
@@ -124,7 +125,7 @@ def home(request):
         items = [False]
 
     context = {
-        "username": current_user.Name[0:7],
+        "username": current_user.Name[0:15],
         "person_link": current_user.id,
         "items": items,
     }
@@ -273,12 +274,14 @@ class Profile_actions:
 
         if item_image_str:
             format, imgStr = item_image_str.split(";base64,")
-
             extension = format.split("/")[-1]
-            file_name = f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
+            file_name = (
+                f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
+            )
 
             image_dir = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "item_images"
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "item_images",
             )
             img_dir_ls = os.listdir(image_dir)
 
@@ -453,6 +456,7 @@ def profile(request):
             "borrowed": i["item"]["borrowed"],
             "id": i["item"]["id"],
             "borrow_req_id": i["item"]["brrw_req_id"],
+            "image": i["item"]["url"],
         }
         for i in user_items
     ]
@@ -480,6 +484,13 @@ def profile(request):
         "user_items": items,
         "brrd_itms": usr_borrowed_itms,
         "borrow_req_len": len(borrow_req),
+        "fall-back-img": os.path.join(
+            os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "item_images",
+            ),
+            "Untitled.jpg",
+        ),
     }
 
     if len(items) == 0:
@@ -537,10 +548,8 @@ def borrow(request):
     )
     if other_brrw_req.exists():
         what_happened = "You have already sent the request."
-        print(what_happened)
-        return JsonResponse({"what": what_happened})
 
-    print("got data from viewUSer.js")
+        return JsonResponse({"what": what_happened})
 
     what_happened = "nothing"
 
@@ -557,7 +566,6 @@ def borrow(request):
     if item_test.Item_borrowed_state:
         brrw_req.delete()
         what_happened = "Item borrowed"
-        print(what_happened)
         return JsonResponse({"what": what_happened})
 
     return JsonResponse({"what": what_happened})
