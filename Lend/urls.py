@@ -10,6 +10,7 @@ from .views import (
     report,
     check_user,
     borrow,
+    account_deletion,
 )
 
 urlpatterns = [
@@ -23,4 +24,5 @@ urlpatterns = [
     path("profile/", profile, name="myacc"),
     path("report/", report, name="repo"),
     path("api/borrow/", borrow),
+    path("delete/", account_deletion),
 ]

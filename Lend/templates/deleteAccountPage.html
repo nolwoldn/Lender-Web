@@ -1,0 +1,31 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete account</title>
+    <link rel="stylesheet" href="{% static 'css/deleteAccount.css' %}" />
+  </head>
+  <body>
+    <main class="main-container">
+      <section class="deletion-top">
+        <h3 class="deletion-heading">Account deletion.</h3>
+        <p class="deletion-text">We are sad to see you go.</p>
+        <p class="deletion-text">We hope we get to see you again</p>
+      </section>
+
+      <form method="post">
+        <textarea
+          class="final-report"
+          name="fin-repo"
+          placeholder="Tell us what we can improve"
+          maxlength="210"
+          style="height: 92px; width: 261px"
+        ></textarea>
+        <button type="submit" class="choice-options">Delete</button>
+        <a href="profile/"><button class="choice-options">Return</button></a>
+      </form>
+    </main>
+  </body>
+</html>

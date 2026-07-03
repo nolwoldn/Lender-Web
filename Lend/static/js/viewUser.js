@@ -19,7 +19,7 @@ async function sendBorrowReq(data) {
 
     switch (fixedRes.what) {
       case "nothing":
-        errorExplainer.innerHTML = "Request has been sent";
+        errorExplainer.innerHTML = "Request sent";
         errorExplainer.style.display = "block";
         break;
       default:

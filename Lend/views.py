@@ -300,8 +300,8 @@ class Profile_actions:
 
         if itm.id not in user_ls:
             return
-        
-        if itm.Item_borrowed_state :
+
+        if itm.Item_borrowed_state:
             return
 
         if acceptance:
@@ -510,7 +510,7 @@ def borrow(request):
         Borrowing_item_id=borrowing_itm_id,
     )
     if other_brrw_req.exists():
-        what_happened = "Request already sent"
+        what_happened = "You have already sent the request."
         print(what_happened)
         return JsonResponse({"what": what_happened})
 
@@ -535,3 +535,43 @@ def borrow(request):
         return JsonResponse({"what": what_happened})
 
     return JsonResponse({"what": what_happened})
+
+def account_deletion(request):
+    if not request.session.get("usr_session"):
+        return redirect("home")
+
+    if not request.method == "POST":
+        return render(request, "deleteAccountPage.html")
+
+    usr_session = request.session["usr_session"]
+
+    usr_acc = Users.objects.filter(id=usr_session).first()
+    usr_id = usr_acc.id
+    usr_itms = Item.objects.filter(id__in=usr_acc.Lended_items_id)
+    usr_borrow_req = Borrow_request.objects.filter(Borrowing_user_id=usr_id)
+    usr_final_repo = request.POST.get("fin-repo").strip()
+    usr_error_repos = Error_reporting.objects.filter(reporting_usr=usr_id)
+
+    if usr_itms.exists:
+        for i in usr_itms:
+            i.delete()
+    if usr_borrow_req.exists():
+        for i in usr_borrow_req:
+            i.delete()
+    if usr_error_repos.exists():
+        if len(usr_final_repo) > 0:
+            final_repo = Error_reporting(reporting_usr=0, report=usr_final_repo)
+        for i in usr_error_repos:
+            i.reporting_usr = 0
+            i.save(force_update=True)
+        final_repo.save()
+
+    if len(usr_acc.Borrowed_items_id) > 0:
+        for i in usr_acc.Borrowed_items_id:
+            crr_prof = Profile_actions(user=usr_acc, data=i)
+            crr_prof.return_item()
+
+    usr_acc.delete()
+    log_out(request)
+
+    return redirect("signup")

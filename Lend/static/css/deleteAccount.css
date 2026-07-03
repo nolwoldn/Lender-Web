@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  background-color: white;
+
+  
+  display: flex;
+  padding: 1px 12px;
+
+  flex-flow: column nowrap;
+  border-radius: 12px;
+  border: 1px solid black;
+  gap: 4px;
+  width: 19%;
+
+}
