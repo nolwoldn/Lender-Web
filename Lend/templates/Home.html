@@ -11,7 +11,7 @@
       {% for i in items %} {% if i != False %}
       <a class="card-total-link" href="/users/?q={{i.lender.link}}">
         <div class="card-item-div">
-          <img class="item-image" src="{{i.item.image}}" />
+          <img class="item-image" src="{{i.item.url}}" alt="No image" width="400px" height="200px" />
           <h3 class="item-name">{{i.item.name}}</h3>
           <p class="item-desc">{{i.item.desc}}</p>
           <p class="card-lender">owned by {{i.lender.name}}</p>

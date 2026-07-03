@@ -27,7 +27,7 @@
             src=""
             alt="Image Preview"
             style="display: none"
-            width="100%"
+            width="200px"
             height="200px"
           />
         </section>
@@ -125,9 +125,7 @@
         </section>
       </section>
 
-
       <!--Profile right-->
-
 
       <section class="profile-right">
         <section class="prof-right-top">
@@ -136,7 +134,13 @@
         </section>
         {% if not No_items %} {% for x in user_items %}
         <div class="prof-item-card" id="{{x.id}}">
-          <img class="item-image" src="{{x}}"
+          <img
+            class="item-image"
+            src="{{x.image}}"
+            width="400px"
+            height="100px"
+            alt="No image"
+          />
           <div class="prof-item-card-top">
             <h3 class="prof-card-top-left">{{x.Name}}</h3>
             <div class="prof-card-top-right">
@@ -178,6 +182,23 @@
                 "
             ></i>
           </section>
+          <section class="image-preview-box">
+            <img
+              class="image-preview"
+              width="200px"
+              height="400px"
+              src="{{x.image}}"
+            />
+          </section>
+          <label>
+            <span>Item image</span>
+            <input
+              type="file"
+              accept="image/*"
+              id="lending-image-edit-{{x.id}}"
+              required
+            />
+          </label>
           <label>
             <span>Item name</span>
             <input
@@ -207,6 +228,7 @@
             data-itm-card-id="{{x.id}}"
             data-name-input-id="lending-name-edit-{{x.id}}"
             data-desc-input-id="lending-desc-edit-{{x.id}}"
+            data-img-input-id = "lending-image-edit-{{x.id}}"
           >
             confirm edit
           </button>

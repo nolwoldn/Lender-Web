@@ -61,14 +61,13 @@ async function sendToServer(action, data) {
 }
 
 function fileToBase64(file) {
-  return new Promise((resolve , reject) => {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
-  })
-}//chose the stupidest way for no reason but for the lols
-
+  });
+} //chose the stupidest way for no reason but for the lols
 
 lendItemSubmit.addEventListener("click", async (event) => {
   const itemName = document.querySelector("#lending-item-name");
@@ -119,21 +118,25 @@ if (requestAnsClass.length > 0) {
 
 if (editSubmitionClass.length > 0) {
   editSubmitionClass.forEach((editSubmitBtn) => {
-    editSubmitBtn.addEventListener("click", (event) => {
+    editSubmitBtn.addEventListener("click", async (event) => {
       const subBtnDataSet = event.currentTarget.dataset;
       const itmId = subBtnDataSet.itmCardId;
-      const itmNameInp = document.querySelector(
-        `#${subBtnDataSet.nameInputId}`,
-      );
-      const itmDescInp = document.querySelector(
-        `#${subBtnDataSet.descInputId}`,
-      );
+
+      const itmNameInp = document.getElementById(subBtnDataSet.nameInputId);
+      const itmDescInp = document.getElementById(subBtnDataSet.descInputId);
+      const itmImgInp = document.getElementById(subBtnDataSet.imgInputId);
+      const itmImgFile = itmImgInp.files[0];
+
       const editingForm = document.querySelector(`#itm-edit-${itmId}`);
       editingForm.style.display = "none";
+
+      const itmImgString = await fileToBase64(itmImgFile);
+
       const fixedData = {
         itm_Id: itmId,
         itm_new_name: itmNameInp.value,
         itm_new_desc: itmDescInp.value,
+        itm_new_img : itmImgString,
       };
 
       sendToServer("editItm", fixedData);

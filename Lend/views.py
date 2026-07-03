@@ -74,7 +74,7 @@ def find_item(user_id):
                 "name": i.Item_name,
                 "desc": i.Item_desc,
                 "borrowed": i.Item_borrowed_state,
-                "url": i.Item_image,
+                "url": i.Item_image.url if i.Item_image else None,
                 "id": i.id,
                 "brrw_req_id": find_BQ_tI(i.id),
             },
@@ -279,10 +279,10 @@ class Profile_actions:
                 f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
             )
 
-            image_dir = os.path.join(
+            image_dir = os.path.join(os.path.join(
                 os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                "item_images",
-            )
+                "media",
+            ),"item_images")
             img_dir_ls = os.listdir(image_dir)
 
             while file_name in img_dir_ls:
@@ -370,7 +370,7 @@ class Profile_actions:
 
         borrow_reqs = Borrow_request.objects.filter(Borrowing_item_id=itm.id)
         for borrw_req in borrow_reqs:
-            borrw_req.delete  # modal change
+            borrw_req.delete()  # modal change
         user_ls.remove(itm.id)
         self.user.Lended_items_id = user_ls  # modal update
         borrowing_usr = Users.objects.filter(Borrowed_items_id__contains=itm.id)
@@ -382,7 +382,9 @@ class Profile_actions:
                 i.Borrowed_items_id = y  # modal update
                 i.save()
 
-        itm.delete
+        
+
+        itm.delete()
         self.user.save()
 
 
@@ -484,7 +486,7 @@ def profile(request):
         "user_items": items,
         "brrd_itms": usr_borrowed_itms,
         "borrow_req_len": len(borrow_req),
-        "fall-back-img": os.path.join(
+        "fall-back-image": os.path.join(
             os.path.join(
                 os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                 "item_images",
@@ -590,11 +592,14 @@ def account_deletion(request):
     usr_id = usr_acc.id
     usr_itms = Item.objects.filter(id__in=usr_acc.Lended_items_id)
     usr_borrow_req = Borrow_request.objects.filter(Borrowing_user_id=usr_id)
+    usr_borrowed_itms = Item.objects.filter(id__in=usr_acc.Borrowed_items_id)
     usr_final_repo = request.POST.get("fin-repo")[0:1200].strip()
     usr_error_repos = Error_reporting.objects.filter(reporting_usr=usr_id)
 
     if usr_itms.exists:
         for i in usr_itms:
+            if i.Item_image and os.path.exists(i.Item_image.path):
+                os.remove(i.Item_image.path)
             i.delete()
     if usr_borrow_req.exists():
         for i in usr_borrow_req:
@@ -606,6 +611,10 @@ def account_deletion(request):
             i.reporting_usr = 0
             i.save(force_update=True)
         final_repo.save()
+
+    for i in usr_borrowed_itms:
+        i.Item_borrowed_state = False
+        i.save()
 
     if len(usr_acc.Borrowed_items_id) > 0:
         for i in usr_acc.Borrowed_items_id:
