@@ -263,6 +263,30 @@ class Profile_actions:
         self.user = user
         self.data = data
 
+    def decode_image(self, img, item_name):
+        if img:
+            format, imgStr = img.split(";base64,")
+            extension = format.split("/")[-1]
+            file_name = (
+                f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
+            )
+            img_dir = os.path.join(
+                os.path.join(
+                    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    "media",
+                ),
+                "item_images",
+            )
+            img_dir_ls = os.listdir(img_dir)
+
+            while file_name in img_dir_ls:
+                file_name = (
+                    f"{item_name}__{random.random() + random.randint(0, 100000)}"
+                )
+            file_dat = ContentFile(base64.b64decode(imgStr), file_name)
+            return file_dat
+        return None
+
     def lend_item(self):
         item_name = self.data["itemName"].strip()
         item_desc = self.data["itemDesc"].strip()
@@ -272,26 +296,7 @@ class Profile_actions:
             Item_name=item_name, Item_desc=item_desc, Item_borrowed_state=False
         )
 
-        if item_image_str:
-            format, imgStr = item_image_str.split(";base64,")
-            extension = format.split("/")[-1]
-            file_name = (
-                f"{item_name}__{random.random() + random.randint(0, 1000)}.{extension}"
-            )
-
-            image_dir = os.path.join(os.path.join(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                "media",
-            ),"item_images")
-            img_dir_ls = os.listdir(image_dir)
-
-            while file_name in img_dir_ls:
-                file_name = (
-                    f"{item_name}__{random.random() + random.randint(0, 100000)}"
-                )
-
-            file_data = ContentFile(base64.b64decode(imgStr), file_name)
-            new_item.Item_image = file_data
+        new_item.Item_image = self.decode_image(img=item_image_str, item_name=item_name)
 
         if len(item_name) > 32:
             item_name = item_name[0:32]
@@ -351,13 +356,19 @@ class Profile_actions:
 
     def edit_itm(self):
         itm = Item.objects.filter(id=self.data["itm_Id"]).first()
-
+        item_img = self.data["itm_new_img"]
         user_ls = self.user.Lended_items_id
         if itm.id not in user_ls:
             return
 
         itm.Item_name = self.data["itm_new_name"]
         itm.Item_desc = self.data["itm_new_desc"]
+
+        if itm.Item_image and os.path.exists(itm.Item_image.path) and item_img is not None:
+            os.remove(itm.Item_image.path)
+            itm.Item_image = self.decode_image(
+                img=item_img, item_name=self.data["itm_new_name"]
+            )
 
         itm.save()
 
@@ -382,7 +393,8 @@ class Profile_actions:
                 i.Borrowed_items_id = y  # modal update
                 i.save()
 
-        
+        if itm.Item_image and os.path.exists(itm.Item_image.path):
+            os.remove(itm.Item_image.path)
 
         itm.delete()
         self.user.save()

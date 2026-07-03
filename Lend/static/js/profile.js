@@ -3,6 +3,7 @@ const closeLendBtn = document.querySelector(".close-lend-form");
 const lendForm = document.querySelector(".lending");
 const lendingItemImage = document.querySelector(".item-image");
 const lendingImagePrev = document.querySelector("#image-preview");
+const editingImageInputClass = document.querySelectorAll(".editing-prev");
 
 const lendItemSubmit = document.querySelector(".submit-button");
 const requestAnsClass = document.querySelectorAll(".request-ans");
@@ -124,19 +125,23 @@ if (editSubmitionClass.length > 0) {
 
       const itmNameInp = document.getElementById(subBtnDataSet.nameInputId);
       const itmDescInp = document.getElementById(subBtnDataSet.descInputId);
-      const itmImgInp = document.getElementById(subBtnDataSet.imgInputId);
+      const itmImgInp = document.querySelector(`.${subBtnDataSet.imgInputId}`);
       const itmImgFile = itmImgInp.files[0];
 
       const editingForm = document.querySelector(`#itm-edit-${itmId}`);
       editingForm.style.display = "none";
 
-      const itmImgString = await fileToBase64(itmImgFile);
+      if (itmImgFile) {
+        const itmImgString = await fileToBase64(itmImgFile);
+      } else {
+        const itmImgString = null;
+      }
 
       const fixedData = {
         itm_Id: itmId,
         itm_new_name: itmNameInp.value,
         itm_new_desc: itmDescInp.value,
-        itm_new_img : itmImgString,
+        itm_new_img: itmImgString,
       };
 
       sendToServer("editItm", fixedData);
@@ -168,3 +173,22 @@ lendingItemImage.addEventListener("change", function () {
     lendingImagePrev.style.display = "none";
   }
 });
+
+if (editingImageInputClass.length > 0) {
+  editingImageInputClass.forEach((editingImageinp) => {
+    editingImageInp.addEventListener("change", function (event) {
+      const editingImageInpDataSet = this.dataset;
+      const editingImgPrev = document.querySelector(
+        editingImageInpDataSet.swapImgId,
+      );
+      const crrItemFile = this.files[0];
+
+      if (crrItemFile) {
+        const crrObjectUrl = URL.createObjectURL(crrItemFile);
+
+        editingImgPrev.src = crrObjectUrl;
+      } else {
+      }
+    });
+  });
+}

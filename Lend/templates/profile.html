@@ -185,9 +185,10 @@
           <section class="image-preview-box">
             <img
               class="image-preview"
-              width="200px"
-              height="400px"
+              width="400px"
+              height="200px"
               src="{{x.image}}"
+              id="lending-prev-edit-{{x.id}}"
             />
           </section>
           <label>
@@ -195,8 +196,10 @@
             <input
               type="file"
               accept="image/*"
-              id="lending-image-edit-{{x.id}}"
-              required
+              class="lending-image-edit-{{x.id}} editing-prev"
+              value="{{x.image}}"
+              class="form-inputs"
+              data-swap-img-id="lending-prev-edit-{{x.id}}"
             />
           </label>
           <label>
@@ -228,7 +231,7 @@
             data-itm-card-id="{{x.id}}"
             data-name-input-id="lending-name-edit-{{x.id}}"
             data-desc-input-id="lending-desc-edit-{{x.id}}"
-            data-img-input-id = "lending-image-edit-{{x.id}}"
+            data-img-input-id="lending-image-edit-{{x.id}}"
           >
             confirm edit
           </button>
