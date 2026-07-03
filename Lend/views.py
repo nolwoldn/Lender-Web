@@ -545,7 +545,13 @@ def account_deletion(request):
 
     usr_session = request.session["usr_session"]
 
-    usr_acc = Users.objects.filter(id=usr_session).first()
+    usr_acc = Users.objects.filter(id=usr_session)
+
+    if not usr_acc.exists:
+        return redirect("home")
+    
+    usr_acc = usr_acc.first()
+
     usr_id = usr_acc.id
     usr_itms = Item.objects.filter(id__in=usr_acc.Lended_items_id)
     usr_borrow_req = Borrow_request.objects.filter(Borrowing_user_id=usr_id)
