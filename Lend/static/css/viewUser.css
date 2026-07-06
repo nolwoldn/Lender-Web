@@ -12,12 +12,13 @@ body {
 }
 .user-heading-sec {
   width: 100%;
-  background-color: rgba(0, 255, 255, 0.504);
+  background-color: rgba(235, 255, 255, 0.504);
   display: flex;
   justify-content: center;
   padding: 20px;
-  border: 3px solid black;
+  box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.033);
   border-radius: 12px;
+  margin-bottom: 18px;
 }
 .user-heading {
   font-size: 40px;
@@ -34,19 +35,20 @@ body {
   gap: 20px;
 }
 .itm-card {
-  border: 3px solid black;
+  box-shadow: 0px 0px 12px 12px rgba(0, 0, 0, 0.195);
   border-radius: 12px;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   padding: 8px;
   gap: 12px;
   transition: 0.3s;
 }
 
+
 .itm-top {
+  float: right;
   display: flex;
-  flex-flow: row nowrap;
-  gap: 8px;
+  justify-content: right;
 }
 
 .itm-card * {
@@ -54,7 +56,7 @@ body {
 }
 
 .itm-card:hover {
-  background-color: bisque;
+  box-shadow: 0px 0px 18px 14px rgba(0, 0, 0, 0.195);
   cursor: pointer;
 }
 

@@ -238,7 +238,7 @@ def check_user(request):
     crr_usr = Users.objects.filter(id=usr_session).first()
     queryed_usr = Users.objects.filter(id=query)
 
-    if not queryed_usr.exists:
+    if not queryed_usr.exists():
         return render(request, "UserNotFound.html", {"username": crr_usr.Name})
     found_usr = queryed_usr.first()
     itms = find_item(found_usr.id)
@@ -595,7 +595,7 @@ def account_deletion(request):
 
     usr_acc = Users.objects.filter(id=usr_session)
 
-    if not usr_acc.exists:
+    if not usr_acc.exists():
         return redirect("home")
 
     usr_acc = usr_acc.first()
@@ -607,7 +607,7 @@ def account_deletion(request):
     usr_final_repo = request.POST.get("fin-repo")[0:1200].strip()
     usr_error_repos = Error_reporting.objects.filter(reporting_usr=usr_id)
 
-    if usr_itms.exists:
+    if usr_itms.exists():
         for i in usr_itms:
             if i.Item_image and os.path.exists(i.Item_image.path):
                 os.remove(i.Item_image.path)
