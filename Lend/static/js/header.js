@@ -54,7 +54,7 @@ function searchQuery() {
       dropDownResults.innerHTML = "";
       data.item.forEach((results) => {
         const pageResponse = `
-            <a class="drop-down-link" href="/users/?q=${encodeURIComponent(results.lender.link)}#${results.items.id}">
+            <a title = "Go to item" class="drop-down-link" href="/users/?q=${encodeURIComponent(results.lender.link)}#${results.items.id}">
                 <div class="drop-down-rs">
                     <div class="search-rs-header">
                         <p class="search-rs-itemname">${results.items.name}</p>
@@ -69,7 +69,6 @@ function searchQuery() {
         `;
 
         dropDownResults.insertAdjacentHTML("beforeend", pageResponse);
-        return;
       });
     });
 }

@@ -106,27 +106,77 @@ body {
 
 #drop-down-results {
   position: absolute;
+
   top: 100%;
   left: 0;
-  width: 70%;
+  width: 90%;
   margin-top: 12px;
-
+  display: flex;
+  flex-flow: column wrap;
   color: black;
-  background-color: rgba(0, 0, 0, 0.356);
+  background-color: rgba(173, 167, 173, 0.356);
 
   border-radius: 12px;
-
+  gap: 0px
+  ;
   overflow-y: auto;
   transition: 0.3s cubic-bezier(0.2, 0.6, 0.8, 1.1);
+  max-height: 50vh;
 }
 .not-found {
-  justify-self: center;
+  margin-left: 20px;
   font-size: 30px;
 }
 
 .drop-down-link {
-  position: relative;
+  background-color: rgba(255, 255, 238, 0.689);
+  margin: 8px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 18px 5px rgba(255, 255, 255, 0.24);
+  transition: 0.5s cubic-bezier(1, 0.2, 0.9, 1.2);
   padding: 12px;
+  text-decoration: none;
+  color: black;
+  overflow: hidden;
+}
+
+.drop-down-link * {
+  opacity: 0.6;
+}
+
+.drop-down-link:hover {
+  background-color: rgb(255 255 238);
+}
+
+.drop-down-link:hover * {
+  opacity: 1;
+}
+
+.drop-down-rs {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+}
+.drop-down-rs * {
+  margin: 0px;
+}
+
+.search-rs-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.search-rs-itemname {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.search-rs-itemrs {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 4px;
+  padding-top: 8px;
 }
 
 /*side bar*/

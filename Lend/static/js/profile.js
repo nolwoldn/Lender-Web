@@ -4,6 +4,7 @@ const lendForm = document.querySelector(".lending");
 const lendingItemImage = document.querySelector(".item-image");
 const lendingImagePrev = document.querySelector("#image-preview");
 const editingImageInputClass = document.querySelectorAll(".editing-prev");
+const errorExplainer = document.querySelector(".error-explanation");
 
 const lendItemSubmit = document.querySelector(".submit-button");
 const requestAnsClass = document.querySelectorAll(".request-ans");
@@ -20,6 +21,18 @@ function closeForm(el) {
 
 lendItemBtn.addEventListener("click", () => openForm(lendForm));
 closeLendBtn.addEventListener("click", () => closeForm(lendForm));
+
+let displayTimer;
+
+function changeErrorExplainer(message) {
+  errorExplainer.innerHTML = message;
+  errorExplainer.style.display = "block";
+  clearTimeout(displayTimer);
+  displayTimer = setTimeout(() => {
+    errorExplainer.innerHTML = "";
+    errorExplainer.style.display = "none";
+  }, 1200);
+}
 
 window.onclick = function (event) {
   if (
@@ -54,7 +67,6 @@ async function sendToServer(action, data) {
     if (myResponse.worked) {
       window.location.href = window.location.href;
     } else {
-      console.error(`Error : ${myResponse.e}`);
     }
   } catch (error) {
     console.log(error);
@@ -87,7 +99,7 @@ lendItemSubmit.addEventListener("click", async (event) => {
     itemDesc: itemDesc.value.trim(),
     itemImage: base64Image,
   };
-
+  changeErrorExplainer("Item lended, please reload the page to see effects");
   sendToServer("lendingItem", fixedData);
 });
 
@@ -96,6 +108,7 @@ if (returnBrrwdItem.length > 0) {
     reElement.addEventListener("click", (event) => {
       const brrwdItem = event.currentTarget;
       const brrwdItemId = brrwdItem.dataset.usrBorrowedItem;
+      changeErrorExplainer("Item returned, reload to see effects");
       sendToServer("returnItem", brrwdItemId);
     });
   });
@@ -111,7 +124,9 @@ if (requestAnsClass.length > 0) {
         borrowId: borrowReqId,
         isAccepted: acceptance,
       };
-
+      changeErrorExplainer(
+        "Borrowe request decsion made, please reload to see effects",
+      );
       sendToServer("affectBorrowReq", fixedData);
     });
   });
@@ -144,6 +159,7 @@ if (editSubmitionClass.length > 0) {
         itm_new_desc: itmDescInp.value,
         itm_new_img: itmImgString,
       };
+      changeErrorExplainer("Item edited reload to see effects");
       sendToServer("editItm", fixedData);
     });
   });
@@ -155,6 +171,7 @@ if (deleteLendedItemClass.length > 0) {
       const btnDataSet = event.currentTarget.dataset;
       const itmId = btnDataSet.itmId;
 
+      changeErrorExplainer("Item deleted, please reload to see effects");
       sendToServer("delete_itm", itmId);
     });
   });
@@ -178,7 +195,9 @@ if (editingImageInputClass.length > 0) {
   editingImageInputClass.forEach((editingImageInp) => {
     editingImageInp.addEventListener("change", function (event) {
       const editingImageInpDataSet = this.dataset;
-      const editingImgPrev = document.getElementById(editingImageInpDataSet.swapImgId);
+      const editingImgPrev = document.getElementById(
+        editingImageInpDataSet.swapImgId,
+      );
       const crrItemFile = this.files[0];
 
       if (crrItemFile) {

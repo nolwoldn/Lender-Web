@@ -233,3 +233,17 @@ h6 {
   border: 3px solid black;
   padding: 20px;
 }
+
+.error-explanation {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding: 18px;
+  font-size: 22px;
+  font-weight: 500;
+  background-color: rgba(244, 244, 170, 0.532);
+  display: none;
+  transition: display 0.9s cubic-bezier(0.1, 1, 0.3, 1);
+  border: 2px solid black;
+}

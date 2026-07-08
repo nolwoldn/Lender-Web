@@ -363,7 +363,11 @@ class Profile_actions:
 
         itm.Item_name = self.data["itm_new_name"]
         itm.Item_desc = self.data["itm_new_desc"]
-        if itm.Item_image and os.path.exists(itm.Item_image.path) and item_img is not None:
+        if (
+            itm.Item_image
+            and os.path.exists(itm.Item_image.path)
+            and item_img is not None
+        ):
             os.remove(itm.Item_image.path)
             itm.Item_image = self.decode_image(
                 img=item_img, item_name=self.data["itm_new_name"]
@@ -462,8 +466,10 @@ def profile(request):
 
         borrow_req.append(full_dict)
 
-    items = [
-        {
+    items = []
+
+    for i in user_items:
+        sending_dict = {
             "Name": i["item"]["name"],
             "desc": i["item"]["desc"],
             "borrowed": i["item"]["borrowed"],
@@ -471,8 +477,14 @@ def profile(request):
             "borrow_req_id": i["item"]["brrw_req_id"],
             "image": i["item"]["url"],
         }
-        for i in user_items
-    ]
+        if sending_dict["borrowed"]:
+            borrowed_user = Users.objects.filter(
+                Borrowed_items_id__contains=sending_dict["id"]
+            ).first()
+            sending_dict["borrowing_user_id"] = borrowed_user.id
+
+        items.append(sending_dict)
+
     usr_borrowed_itms = []
 
     for b_ID in user.Borrowed_items_id:

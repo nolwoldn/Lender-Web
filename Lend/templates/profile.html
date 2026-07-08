@@ -145,7 +145,12 @@
             <h3 class="prof-card-top-left">{{x.Name}}</h3>
             <div class="prof-card-top-right">
               {% if x.borrowed %}
-              <i class="fa fa-circle borrowed_item" style="color: red"></i>
+              <a
+                href="../../users/?q={{x.borrowing_user_id}}"
+                title="Go to user that borrowed"
+                class="fa fa-circle borrowed_item"
+                style="color: red;text-decoration: none;"
+              ></a>
               {% else %}
               <i
                 class="fa fa-circle unborrowed_item"
@@ -238,6 +243,7 @@
         <div class="prof-right-not-found">No Lended items</div>
         {% endif %}
       </section>
+      <div class="error-explanation"></div>
     </main>
 
     <script type="module" src="{% static 'js/profile.js' %}"></script>
