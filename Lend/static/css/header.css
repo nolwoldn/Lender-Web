@@ -117,9 +117,7 @@ body {
   background-color: rgba(173, 167, 173, 0.356);
 
   border-radius: 12px;
-  gap: 0px
-  ;
-  overflow-y: auto;
+  overflow-y: scroll;
   transition: 0.3s cubic-bezier(0.2, 0.6, 0.8, 1.1);
   max-height: 50vh;
 }
@@ -131,6 +129,7 @@ body {
 .drop-down-link {
   background-color: rgba(255, 255, 238, 0.689);
   margin: 8px;
+  
   border-radius: 12px;
   box-shadow: 0px 0px 18px 5px rgba(255, 255, 255, 0.24);
   transition: 0.5s cubic-bezier(1, 0.2, 0.9, 1.2);
