@@ -62,8 +62,9 @@ function searchQuery() {
                     </div>
                     <div class="search-rs-itemrs">
                         <h4 class="item-desc-name">Item description</h4>
-                        <p class="search-rs-item-desc">${results.items.desc.trim().substring(0, 79)}<span class="item-desc-link">...More</span></p>
+                        <p class="search-rs-item-desc">${results.items.desc}</p>
                     </div>
+                    <img class="search-item-image" src="${results.items.urlImage}" alt="NO IMAGE" />
                 </div> 
             </a>     
         `;

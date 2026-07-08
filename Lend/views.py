@@ -149,7 +149,12 @@ def find_through_search(query):
                 "name": lender.Name,
                 "link": lender.id,
             },
-            "items": {"name": x.Item_name, "desc": x.Item_desc, "id": x.id},
+            "items": {
+                "name": x.Item_name,
+                "desc": x.Item_desc,
+                "id": x.id,
+                "urlImage": x.Item_image.url if x.Item_image else None,
+            },
         }
         full_comp_ls.append(adding_dict)
 
