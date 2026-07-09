@@ -31,7 +31,7 @@ function changeErrorExplainer(message) {
   displayTimer = setTimeout(() => {
     errorExplainer.innerHTML = "";
     errorExplainer.style.display = "none";
-  }, 1200);
+  }, 5000);
 }
 
 window.onclick = function (event) {

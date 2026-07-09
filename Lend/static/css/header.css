@@ -14,7 +14,7 @@ body {
   float: right;
   position: fixed;
   justify-content: space-between;
-  background-color: rgb(13, 188, 121);
+  background-color: rgb(59, 191, 254) !important;
   color: white;
   flex-flow: row nowrap;
 }
