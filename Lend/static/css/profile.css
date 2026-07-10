@@ -19,7 +19,6 @@ body {
   display: flex;
   flex-flow: column nowrap;
   gap: 0px;
-  position: static;
 }
 .main-profile {
   margin-bottom: 30px;
@@ -28,7 +27,7 @@ body {
   border: 3px solid black;
   display: flex;
   justify-content: space-between !important;
-
+  align-items: center;
   border-radius: 12px;
   background-color: rgba(255, 255, 44, 0.836);
 }
@@ -48,6 +47,7 @@ body {
   padding: 20px;
   background-color: rgba(224, 160, 0, 0.399);
   border: 3px solid black;
+  margin-bottom: 5px;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
@@ -118,6 +118,16 @@ body {
   flex-flow: column nowrap;
   height: 60%;
 }
+
+.image-preview {
+  width: 400px;
+  height: 200px;
+}
+.item-image {
+  width: 400px;
+  height: 100px;
+}
+
 h1,
 h2,
 h3,
@@ -131,6 +141,12 @@ h6 {
   justify-content: space-between;
   margin-bottom: 0px;
   font-size: 22px;
+}
+
+#image-preview {
+  width: 100%;
+  height: 200px;
+  border: 1px solid black;
 }
 
 .Lend-item {
@@ -168,6 +184,12 @@ h6 {
   gap: 4px;
   display: none;
 }
+
+.brrw-itm-n {
+  z-index: -1;
+  position: relative;
+}
+
 .delete-account {
   background-color: red;
   color: white;
@@ -284,4 +306,52 @@ h6 {
 }
 .user-w-b-link:active::after {
   background-color: red;
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+  .full {
+    padding: 10vh 5%;
+    flex-flow: column nowrap;
+    gap: 10vh;
+  }
+
+  .profile-left {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    padding-top: 5vh;
+    gap: 12px;
+  }
+  .main-profile {
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-right {
+    width: 100%;
+  }
+
+  .item-image {
+    width: 100%;
+    height: 100px;
+  }
+
+  .lending {
+    width: 90%;
+    top: 30%;
+  }
+
+  .editing {
+    top: 20%;
+    left: 5%;
+    transform: none;
+    width: 90%;
+  }
+
+  .image-preview {
+    width: 100%;
+    height: 200px;
+    border: 1px solid black;
+  }
 }

@@ -17,6 +17,7 @@ body {
   background-color: rgb(59, 191, 254) !important;
   color: white;
   flex-flow: row nowrap;
+  z-index: 20;
 }
 .burger {
   margin-right: 5px;
