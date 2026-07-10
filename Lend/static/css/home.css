@@ -13,10 +13,12 @@ body {
   height: 100vh;
   display: flex;
   justify-content: start;
+
   align-items: start;
   padding: 80px;
-  gap: 20px
-  ;
+  gap: 20px;
+
+  flex-flow: row wrap;
 }
 
 .No-items-found {
@@ -41,7 +43,6 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 12px 12px rgba(0, 0, 0, 0.127);
-
 }
 
 .card-total-link * {

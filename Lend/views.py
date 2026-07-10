@@ -486,7 +486,9 @@ def profile(request):
             borrowed_user = Users.objects.filter(
                 Borrowed_items_id__contains=sending_dict["id"]
             ).first()
+
             sending_dict["borrowing_user_id"] = borrowed_user.id
+            sending_dict["borrowing_user_name"] = borrowed_user.Name
 
         items.append(sending_dict)
 
