@@ -53,3 +53,17 @@ body {
   background-color: rgba(237, 237, 195, 0.595);
   color: rgba(0, 0, 0, 0.595);
 }
+
+@media (max-width: 900px) and (max-height: 1000px) {
+  .main-show {
+    padding: 80px 0px ;
+  }
+  .card-total-link {
+    width: 100%;
+  }
+  .item-image {
+    width: 100%;
+  }
+}
+
+

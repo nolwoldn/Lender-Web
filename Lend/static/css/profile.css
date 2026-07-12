@@ -349,7 +349,9 @@ h6 {
     transform: none;
     width: 90%;
   }
-
+  .borrow-req-cards {
+    width: 100%;
+  }
   .image-preview {
     width: 100%;
     height: 200px;
@@ -357,7 +359,7 @@ h6 {
   }
 }
 
-@media (min-width: 750px) and (max-width: 1200px) {
+@media (min-width: 750px) and (max-width: 1500px) {
   .delete-account {
     width: auto;
   }

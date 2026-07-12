@@ -12,7 +12,19 @@ function closeSideBar() {
 }
 let timer;
 function openSideBar() {
-  sideBar.style.width = "20%";
+  const screenWidth = window.innerWidth;
+  switch (true) {
+    case (300 <= screenWidth) && (screenWidth < 700):
+      sideBar.style.width = "60%";
+      break;
+    case (700 <= screenWidth) && (screenWidth < 1000):
+      sideBar.style.width = "30%";
+      break;
+    case 1000 <= screenWidth:
+      sideBar.style.width = "20%";
+      break;
+  }
+
 
   timer = setTimeout(() => {
     Array.from(sideBar.children).forEach((child) => {

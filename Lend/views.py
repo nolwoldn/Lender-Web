@@ -655,3 +655,4 @@ def account_deletion(request):
     log_out(request)
 
     return redirect("signup")
+

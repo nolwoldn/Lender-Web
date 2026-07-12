@@ -11,12 +11,13 @@ from .views import (
     check_user,
     borrow,
     account_deletion,
+   
 )
 
 urlpatterns = [
     path("", home, name="home"),
     path("login/", log_in, name="login"),
-    path("search/", Search, name="search"),
+  
     path("api/search/", api_search),
     path("logout/", log_out, name="log_out"),
     path("signup/", sign_up, name="signup"),

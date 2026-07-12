@@ -14,7 +14,7 @@ body {
   float: right;
   position: fixed;
   justify-content: space-between;
-  background-color: rgb(59, 191, 254) !important;
+  background-color: rgb(59, 191, 254);
   color: white;
   flex-flow: row nowrap;
   z-index: 20;
@@ -22,11 +22,13 @@ body {
 .burger {
   margin-right: 5px;
 }
+
 /*left*/
+
 .left {
   display: flex;
   padding-top: 2px;
-  width: 40%;
+  width: 30%;
   flex-flow: row nowrap;
 }
 
@@ -80,7 +82,6 @@ body {
   flex-wrap: nowrap;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgba(205, 239, 248, 0.349);
-  
 }
 #search-input {
   width: 90%;
@@ -196,7 +197,7 @@ body {
   flex-flow: column nowrap;
   align-items: start;
   width: 0%;
-  z-index: 1;
+  z-index: 21;
   background-color: rgb(227, 230, 232);
   box-shadow: 5px 60px 8px 1px rgba(130, 130, 130, 0.141);
   background-color: rgb(255, 255, 255);
@@ -271,4 +272,38 @@ nav {
   100% {
     opacity: 1;
   }
+}
+
+@media (max-width: 900px) {
+  .profile-right-link {
+    display: none;
+  }
+  .search-wrapper {
+    width: 70%;
+  }
+  .search-wrapper {
+    width: 100%;
+    padding: 0px;
+  }
+  #drop-down-results {
+    width: 100%;
+    left: -20%;
+    transform : scaleX(1.3)
+  }
+  .search-button {
+    display: none;
+  }
+  #search-input {
+    width: 100%;
+    padding: 20px 15px;
+    margin-left: 12px;
+  }
+  .report-issue-link {
+    display: none;
+  }
+  .header {
+    justify-content: space-around;
+    gap: 40px;
+  }
+  
 }

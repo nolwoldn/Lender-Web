@@ -11,6 +11,7 @@ body {
 .txt-area {
   overflow: hidden;
   padding: 12px 8px;
+  width: 100%;
 }
 .submit-button {
   width: 40%;
@@ -18,9 +19,9 @@ body {
   border: 1px solid black;
   background-color: rgba(227, 230, 232, 0.438);
   margin-top: 12px;
-  border-radius: 5px ;
+  border-radius: 5px;
 }
-.submit-button:active{
+.submit-button:active {
   background-color: rgba(100, 100, 129, 0.431);
 }
 
@@ -42,14 +43,36 @@ hr {
   position: absolute;
   height: 20px;
   transform: scaleY(0);
-  animation: report-anim 0.7s cubic-bezier(0.5 ,1,0.5,1) forwards;
+  animation: report-anim 0.7s cubic-bezier(0.5, 1, 0.5, 1) forwards;
 }
 
-@keyframes report-anim{
-  0%{
+@keyframes report-anim {
+  0% {
     transform: scaleY(0);
   }
-  100%{
+  100% {
     transform: scaleY(1);
+  }
+}
+
+@media (max-width: 500px) and (max-height: 1000px) {
+  .main-body {
+    padding: 150px 30px;
+  }
+  .txt-area {
+    width: 100%;
+    border: 1px solid rgba(255, 0, 0, 0.348);
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 800px) {
+  .txt-area {
+    width: 100%;
+    border: 3px solid rgba(255, 0, 0, 0.348);
+    border-left: 4px solid rgb(85, 59, 254);
+    border-right: 4px solid rgb(104, 59, 254);
+    border-radius: 12px;
   }
 }
