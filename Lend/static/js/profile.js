@@ -61,12 +61,8 @@ async function sendToServer(action, data) {
       },
       body: JSON.stringify(payload),
     });
-
-    const myResponse = response.json();
-
-    if (myResponse.worked) {
-      window.location.href = window.location.href;
-    } else {
+    if (response.ok) {
+      location.reload();
     }
   } catch (error) {
     console.log(error);
